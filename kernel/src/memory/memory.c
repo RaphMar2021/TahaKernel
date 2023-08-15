@@ -56,6 +56,14 @@ void init_memory(struct limine_memmap_entry **entries, uint64_t entry_count)
     }
 
     kernel_stack = (void *)((uint64_t)kernel_stack + KERNEL_STACK_SIZE);
+
+    user_stack = malloc(KERNEL_STACK_SIZE);
+    if (!user_stack)
+    {
+        log(LOG_ERROR, "Unable to alloc memory to kernel stack!\n");
+    }
+
+    user_stack = (void *)((uint64_t)user_stack + KERNEL_STACK_SIZE);
 }
 
 void detect_total_memory(struct limine_memmap_entry **entries, uint64_t entry_count)

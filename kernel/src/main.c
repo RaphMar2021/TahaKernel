@@ -86,12 +86,30 @@ void callback1()
     printf("Callback 1!\n");
 }
 
-void callback2()
+void userfunc()
 {
     printf("Callback 2!\n");
+
+    while(1){}
 }
 
-// ...
+void JumpToUserMode(void *userArgs, void *entryPoint, void *userStack) {
+    asm volatile (
+        "movq $0x1b, %%rax\n"
+        "movw %%ax, %%ds\n"
+        "movw %%ax, %%es\n"
+        "pushq %%rax\n"
+        "pushq %0\n"
+        "pushq $0x202\n"
+        "pushq $0x23\n"
+        "pushq %1\n"
+        "iretq\n"
+        :
+        : "r"(userStack), "r"(entryPoint)
+        : "rax"
+    );
+}
+
 
 void _start(void)
 {
@@ -132,6 +150,8 @@ void _start(void)
     current_directory_cluster = bs->root_cluster;
 
     print_prompt();
+    asm("cli");
+    JumpToUserMode(NULL, (void*)userfunc, user_stack);
 
     while (1)
         ;
