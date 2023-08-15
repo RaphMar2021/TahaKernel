@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "stddef.h": "c",
+        "limine.h": "c",
+        "font.h": "c",
+        "stdarg.h": "c",
+        "gdt.h": "c",
+        "stdint.h": "c",
+        "task.h": "c",
+        "lib.h": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "format": "c",
+        "string_view": "c",
+        "syscall.h": "c",
+        "video.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
